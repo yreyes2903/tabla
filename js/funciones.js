@@ -27,9 +27,9 @@ function agregardatos(nombre,apellido,email,edad){
   method: "POST",
   url: "php/agregarDatos.php",
   data: cadena,
-}).done(function() {
-  //console.log("Hola");
-  //alert("datos salvados"+msg); // imprimimos la respuesta
+}).done(function(r) {
+//  console.log(r);
+  alert("datos salvados"+r); // imprimimos la respuesta
   $('#tabla').load('componentes/tabla.php');
   alertify.success("agregado con exito :)");
 }).fail(function() {

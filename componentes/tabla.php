@@ -37,11 +37,14 @@ $conexion=conexion();
            from alumnos";
          }
        }else{
-         $sql="SELECT id,nombre,apellido,email,edad
-           from alumnos";
+      //   $sql="SELECT id,nombre,apellido,email,edad
+      //     from alumnos";
+           $sql = $conexion->prepare("SELECT id,nombre,apellido,email,edad FROM alumnos");
+           $sql->execute();
+
        }
-			 $result=mysqli_query($conexion,$sql);
-			 while ($ver=mysqli_fetch_array($result)) {
+			 //$result=mysqli_query($conexion,$sql);
+			 while ($ver=$sql->fetch()) {
        $datos=$ver[0]."||".
               $ver[1]."||".
               $ver[2]."||".
