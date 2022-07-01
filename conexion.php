@@ -19,7 +19,6 @@ while ($result = $statement->fetch()) {
 }*/
 
 
-
 //$conexion = new mysqli($host, $usuariodb, $passwdb, $nombredb);
 return $conexion;
 
@@ -49,5 +48,23 @@ if ($tblCnt==1) {
 else {
   echo "There are $tblCnt tables<br />\n";
 }*/
+
+// Conexion con la base de datos utilizando POO
+/*class Database{
+
+		static public function conexion(){
+      $host='localhost';
+      $usuariodb='desarrollo';
+      $passwdb='mtfg1902';
+      $nombredb='persona';
+
+      $dsn = "mysql:host=$host;port=3306;dbname=$nombredb";
+      $options = array(PDO::ATTR_EMULATE_PREPARES => false);
+      $conexion = new PDO($dsn, $usuariodb, $passwdb, $options);
+      return $conexion;
+
+		}
+}*/
+
 
  ?>

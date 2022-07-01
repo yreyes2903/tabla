@@ -1,7 +1,6 @@
 <?php
 session_start();
-require_once '../conexion.php';
-$conexion=conexion();
+require_once '../loader.php';
 
  ?>
 <div class="row">
@@ -26,36 +25,22 @@ $conexion=conexion();
       </thead>
       <tbody>
 
-      <?php
-      if(isset($_SESSION['consulta'])){
-         if($_SESSION['consulta'] > 0){
-           $idp=$_SESSION['consulta'];
-           $sql="SELECT id,nombre,apellido,email,edad
-           from alumnos where id='$idp'";
-         }else{
-           $sql="SELECT id,nombre,apellido,email,edad
-           from alumnos";
-         }
-       }else{
-      //   $sql="SELECT id,nombre,apellido,email,edad
-      //     from alumnos";
-           $sql = $conexion->prepare("SELECT id,nombre,apellido,email,edad FROM alumnos");
-           $sql->execute();
+       <?php        
+        $valor=$consulta->listar($conexion);
+        foreach ($valor as $key => $ver){
+         $datos=$ver['id']."||".
+                $ver['nombre']."||".
+                $ver['apellido']."||".
+                $ver['email']."||".
+                $ver['edad'];
 
-       }
-			 //$result=mysqli_query($conexion,$sql);
-			 while ($ver=$sql->fetch()) {
-       $datos=$ver[0]."||".
-              $ver[1]."||".
-              $ver[2]."||".
-              $ver[3]."||".
-              $ver[4];
-			 ?>
-			<tr>
-				<td><?php echo $ver[1]; ?></td>
-				<td><?php echo $ver[2]; ?></td>
-				<td><?php echo $ver[3]; ?></td>
-				<td><?php echo $ver[4]; ?></td>
+         ?>
+        <tr>
+				<td><?php echo htmlspecialchars($ver['nombre'], ENT_QUOTES, UTF8); ?></td>
+				<td><?php echo htmlspecialchars($ver['apellido'], ENT_QUOTES, UTF8); ?></td>
+				<td><?php echo htmlspecialchars($ver['email'], ENT_QUOTES, UTF8); ?></td>
+				<td><?php echo htmlspecialchars($ver['edad'], ENT_QUOTES, UTF8); ?></td>
+
 				<td>
           <button type="button" name="button" class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="modal"
           onclick="agregaform('<?php echo $datos; ?>')" data-target="#modalEdicion">
@@ -64,11 +49,11 @@ $conexion=conexion();
         </td>
 				<td>
           <button type="button" name="button" class="btn btn-danger glyphicon glyphicon-remove"
-          onclick="preguntaSiNo('<?php echo $ver[0]; ?>')"></button>
+          onclick="preguntaSiNo('<?php echo $ver['id']; ?>')"></button>
         </td>
 			</tr>
 			<?php
-       }
+    }
 			 ?>
        </tbody>
 		</table>
