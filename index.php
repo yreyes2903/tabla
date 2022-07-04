@@ -16,7 +16,7 @@ unset($_SESSION['consulta']);
   <link rel="stylesheet" type="text/css" href="librerias/datatable/dataTables.bootstrap.min.css">
 
 
-	<script src="librerias/jquery-3.2.1.min.js"></script>
+	<script src="librerias/jquery-3.6.0.js"></script>
   <script type="text/javascript" src="js/funciones.js"></script>
 	<script src="librerias/bootstrap/js/bootstrap.js"></script>
 	<script src="librerias/alertifyjs/alertify.js"></script>
@@ -100,6 +100,7 @@ unset($_SESSION['consulta']);
   $(document).ready(function(){
     $('#tabla').load('componentes/tabla.php');
     //$('#buscador').load('componentes/buscador.php');
+
   });
 </script>
 <script type="text/javascript">

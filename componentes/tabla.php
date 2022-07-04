@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once '../loader.php';
-
  ?>
 <div class="row">
 	<div class="col-sm-12">
@@ -25,15 +24,11 @@ require_once '../loader.php';
       </thead>
       <tbody>
 
-       <?php        
+       <?php
         $valor=$consulta->listar($conexion);
         foreach ($valor as $key => $ver){
-         $datos=$ver['id']."||".
-                $ver['nombre']."||".
-                $ver['apellido']."||".
-                $ver['email']."||".
-                $ver['edad'];
-
+          $data=array('id'=>$ver['id'],'nombre'=>$ver['nombre'],'apellido'=>$ver['apellido'],'email'=>$ver['email'],'edad'=>$ver['edad']);
+          $datos=json_encode($data);
          ?>
         <tr>
 				<td><?php echo htmlspecialchars($ver['nombre'], ENT_QUOTES, UTF8); ?></td>
@@ -42,10 +37,10 @@ require_once '../loader.php';
 				<td><?php echo htmlspecialchars($ver['edad'], ENT_QUOTES, UTF8); ?></td>
 
 				<td>
-          <button type="button" name="button" class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="modal"
-          onclick="agregaform('<?php echo $datos; ?>')" data-target="#modalEdicion">
-
+          <button  type="button" name="button" class="btn btn-warning glyphicon glyphicon-pencil" data-toggle="modal"
+          onclick='agregaform(<?php echo $datos ?>)' data-target="#modalEdicion">
           </button>
+
         </td>
 				<td>
           <button type="button" name="button" class="btn btn-danger glyphicon glyphicon-remove"
@@ -73,5 +68,6 @@ require_once '../loader.php';
       language: espanol
 
     });
+
   });
 </script>

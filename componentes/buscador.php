@@ -1,10 +1,6 @@
 <?php
-	require_once "../conexion.php";
-	$conexion=conexion();
-
-	$sql="SELECT id,nombre,apellido,email,edad
-						from alumnos";
-				$result=mysqli_query($conexion,$sql);
+	require_once "../loader.php";
+	$valor=$consulta->listar($conexion);
 
  ?>
 <br><br>
@@ -15,13 +11,16 @@
 		<select id="buscadorvivo" class="form-control input-sm">
 			<option value="0">Seleciona uno</option>
 			<?php
-				while($ver=mysqli_fetch_array($result)):
+
+				foreach ($valor as $key => $ver):
+				$cadena=$ver['nombre']."-".$ver['apellido'];
 			 ?>
-				<option value="<?php echo $ver[0] ?>">
-					<?php echo $ver[1]." ".$ver[2] ?>
+				<option value="<?php echo htmlspecialchars($ver['id'], ENT_QUOTES, UTF8); ?>">
+
+					<?php echo htmlspecialchars($cadena, ENT_QUOTES, UTF8); ?>
 				</option>
 
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 
 		</select>
 	</div>
