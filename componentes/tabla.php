@@ -25,7 +25,8 @@ require_once '../loader.php';
       <tbody>
 
        <?php
-        $valor=$consulta->listar($conexion);
+        $consultag = new ConsultaGenerica('alumnos');
+        $valor=$consultag->listar($conexion);
         foreach ($valor as $key => $ver){
           $data=array('id'=>$ver['id'],'nombre'=>$ver['nombre'],'apellido'=>$ver['apellido'],'email'=>$ver['email'],'edad'=>$ver['edad']);
           $datos=json_encode($data);

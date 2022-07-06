@@ -49,5 +49,78 @@ class Consulta
 
 }
 
+class ConsultaGenerica
+{
+  protected $tabla;
+  protected $sql=null;
+
+  function __construct($tabla=null)
+  {
+    $this->tabla = $tabla;
+  }
+
+  public function listar($conexion)
+  {
+    $this->sql= $conexion->prepare("SELECT * FROM {$this->tabla}");
+    $this->sql->execute();
+    $ver=$this->sql->fetchAll(PDO::FETCH_ASSOC);
+    return $ver;
+  }
+
+  public function crear($conexion,$obj)
+  {
+    $campos = implode(",", array_keys($obj));
+    $valores = ":".implode(", :", array_keys($obj));
+    $this->sql= $conexion->prepare( "INSERT INTO {$this->tabla} ({$campos}) VALUES ({$valores}) ");
+
+    foreach ($obj as $llave => $valor) {
+      //$this->sql->bindValue(":$llave", $valor);
+      $tipo=gettype($valor);
+
+      if ($tipo=="integer") {
+        $this->sql->bindValue(":$llave", $valor, PDO::PARAM_INT);
+      } else {
+        $this->sql->bindValue(":$llave", $valor, PDO::PARAM_STR);
+      }
+
+    }
+    $this->sql->execute();
+    $correcto=$this->sql->rowCount();
+    return $correcto;
+  }
+
+  public function actualizar($conexion,$obj,$id)
+  {
+    $campos="";
+    foreach ($obj as $llave => $valor) {
+      $campos .= "$llave=:$llave,";
+    }
+    $campos= rtrim($campos, ",");
+    $this->sql= $conexion->prepare( "UPDATE {$this->tabla} SET $campos  WHERE id = :id");
+    $this->sql->bindValue(":id", $id, PDO::PARAM_INT);
+    foreach ($obj as $llave => $valor) {
+      $tipo=gettype($valor);
+
+      if ($tipo=="integer") {
+        $this->sql->bindValue(":$llave", $valor, PDO::PARAM_INT);
+      } else {
+        $this->sql->bindValue(":$llave", $valor, PDO::PARAM_STR);
+      }
+
+    }
+    $this->sql->execute();
+    $correcto=$this->sql->rowCount();
+    return $correcto;
+  }
+
+  public function eliminar($conexion,$id)
+  {
+    $this->sql= $conexion->prepare("DELETE FROM {$this->tabla} WHERE id = :id");
+    $this->sql->bindValue(":id", $id, PDO::PARAM_INT);
+    $this->sql->execute();
+    $correcto=$this->sql->rowCount();
+    return $correcto;
+  }
+}
 
  ?>

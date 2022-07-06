@@ -6,8 +6,10 @@ $nombre=filter_var($_POST['nombre'], FILTER_SANITIZE_STRING);
 $apellido=filter_var($_POST['apellido'], FILTER_SANITIZE_STRING);
 $email=filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 $edad=filter_var($_POST['edad'], FILTER_SANITIZE_NUMBER_INT);
-$persona= new Persona($nombre,$apellido,$email,$edad);
-$ejecutar=$consulta->crear($conexion,$persona);
+//$persona= new Persona($nombre,$apellido,$email,$edad);
+$consultag = new ConsultaGenerica('alumnos');
+$obj=array('nombre' => $nombre, 'apellido' => $apellido, 'email' => $email, 'edad' => $edad);
+$ejecutar=$consultag->crear($conexion,$obj);
 echo "$ejecutar";
 
 

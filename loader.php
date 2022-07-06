@@ -5,4 +5,5 @@ require_once('conexion.php');
 $conexion=conexion();
 $consulta = new Consulta();
 
+
  ?>

@@ -2,6 +2,7 @@
 require_once '../loader.php';
 
 $id=$_POST['id'];
-$ejecutar=$consulta->eliminar($conexion,$id);
+$consultag = new ConsultaGenerica('alumnos');
+$ejecutar=$consultag->eliminar($conexion,$id);
 echo "$ejecutar";
  ?>

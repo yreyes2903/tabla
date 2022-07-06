@@ -4,6 +4,7 @@ function agregardatos(nombre,apellido,email,edad){
 
  cadena={"nombre":nombre,"apellido":apellido,"email":email,"edad":edad }
 //Otra forma de implementar el metodo ajax
+console.log(cadena)
   $.ajax({
   method: "POST",
   url: "php/agregarDatos.php",

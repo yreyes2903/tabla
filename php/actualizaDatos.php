@@ -6,8 +6,10 @@ $nombre=$_POST['nombre'];
 $apellido=$_POST['apellido'];
 $email=$_POST['email'];
 $edad=$_POST['edad'];
-
-$persona= new Persona($nombre,$apellido,$email,$edad,$id);
-$ejecutar=$consulta->actualizar($conexion,$persona);
+//$persona= new Persona($nombre,$apellido,$email,$edad,$id);
+//$ejecutar=$persona->actualizar($conexion);
+$consultag = new ConsultaGenerica('alumnos');
+$obj=array('nombre' => $nombre, 'apellido' => $apellido, 'email' => $email, 'edad' => $edad);
+$ejecutar=$consultag->actualizar($conexion,$obj,$id);
 echo "$ejecutar";
  ?>
